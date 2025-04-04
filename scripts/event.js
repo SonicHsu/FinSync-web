@@ -15,21 +15,6 @@ export function initStaticEvent(parent, event) {
     parent.appendChild(eventElement);
 }
 
-export function initDynamicEvent(parent, event, dynamicStyles) {
-    const eventElement = initEvent(event);
-
-    eventElement.classList.add("event--filled");
-    eventElement.classList.add("event--dynamic");
-
-    eventElement.style.top = dynamicStyles.top;
-    eventElement.style.left = dynamicStyles.left;
-    eventElement.style.bottom = dynamicStyles.bottom;
-    eventElement.style.right = dynamicStyles.right;
-
-    eventElement.dataset.eventDynamic = true;
-
-    parent.appendChild(eventElement);
-}
 
 function initEvent(event) {
     const eventContent = eventTemplateElement.content.cloneNode(true);

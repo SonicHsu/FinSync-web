@@ -23,7 +23,7 @@ export function initResponsive() {
         if (deviceType === "mobile") {
             document.dispatchEvent(new CustomEvent("view-change", {
                 detail: {
-                    view: "week"
+                    view: "day"
                 },
                 bubbles: true
             })); 

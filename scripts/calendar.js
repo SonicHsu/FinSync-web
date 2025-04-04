@@ -1,6 +1,6 @@
 import { today } from "./date.js"
 import { initMonthCalendar } from "./month-calendar.js";
-import { initWeekCalendar } from "./week-calendar.js";
+import { initDayCalendar } from "./day-calendar.js";
 import { currentDeviceType } from "./responsive.js";
 import { getUrlDate, getUrlView } from "./url.js";
 
@@ -20,10 +20,8 @@ export function initCalendar(eventStore) {
 
         if (selectedView === "month") {
             initMonthCalendar(calendarElement, selectedDate, eventStore);
-        } else if (selectedView === "week") {
-            initWeekCalendar(calendarElement, selectedDate, eventStore, false, deviceType);
-        } else {
-            initWeekCalendar(calendarElement, selectedDate, eventStore, true, deviceType);
+        }  else {
+            initDayCalendar(calendarElement, selectedDate, eventStore, deviceType);
         }
 
         calendarElement.querySelector("[data-calendar-scrollable]").scrollTo({ top : scrollTop});

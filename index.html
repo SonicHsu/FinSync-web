@@ -112,7 +112,6 @@
                 <div class="select desktop-only">
                     <select class="select__select" data-view-select>
                         <option value="day">Day</option>
-                        <option value="week">Week</option>
                         <option value="month" selected>Month</option>
                     </select>
 
@@ -461,7 +460,7 @@
     </template>
 
     <template data-template="week-calendar">
-        <div class="week-calendar" data-week-calendar>
+        <div class="week-calendar week-calendar--day" data-week-calendar>
             <ul class="week-calendar__day-of-week-list" data-week-calendar-day-of-week-list>
             </ul>
 
@@ -471,78 +470,7 @@
             <div class="week-calendar__content">
                 <div class="week-calendar__content-inner" data-calendar-scrollable>
                     <ul class="week-calendar__time-list">
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">12:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">1:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">2:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">3:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">4:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">5:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">6:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">7:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">8:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">9:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">10:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">11:00 AM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">12:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">1:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">2:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">3:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">4:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">5:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">6:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">7:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">8:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">9:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">10:00 PM</time>
-                        </li>
-                        <li class="week-calendar__time-item">
-                            <time class="week-calendar__time">11:00 PM</time>
-                        </li>
+                   
                     </ul>
 
                     <div class="week-calendar__columns" data-week-calendar-columns>
@@ -570,30 +498,48 @@
 
     <template data-template="week-calendar-column">
         <div class="week-calendar__column" data-week-calendar-column>
-            <div class="week-calendar__cell" data-week-calendar-cell="0"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="60"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="120"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="180"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="240"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="300"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="360"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="420"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="480"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="540"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="600"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="660"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="720"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="780"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="840"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="900"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="960"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1020"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1080"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1140"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1200"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1260"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1320"></div>
-            <div class="week-calendar__cell" data-week-calendar-cell="1380"></div>
+            <ul class="event-list" data-event-list></ul>
+        </div>
+    </template>
+
+    <template data-template="day-calendar">
+        <div class="day-calendar" data-day-calendar>
+            <ul class="day-calendar__day-of-week-list" data-day-calendar-day-of-week-list>
+            </ul>
+    
+            <ul class="day-calendar__all-day-list" data-day-calendar-all-day-list>
+            </ul>
+    
+            <div class="day-calendar__content">
+                <div class="day-calendar__content-inner" data-calendar-scrollable>
+                    <ul class="day-calendar__time-list">
+                    </ul>
+    
+                    <div class="day-calendar__columns" data-day-calendar-columns>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template data-template="day-calendar-day-of-week">
+        <li class="day-calendar__day-of-week" data-day-calendar-day-of-week>
+            <button class="day-calendar__day-of-week-button" data-day-calendar-day-of-week-button>
+                <span class="day-calendar__day-of-week-day" data-day-calendar-day-of-week-day></span>
+                <span class="day-calendar__day-of-week-number" data-day-calendar-day-of-week-number></span>
+            </button>
+        </li>
+    </template>
+    
+    <template data-template="day-calendar-all-day-list-item">
+        <li class="day-calendar__all-day-list-item" data-day-calendar-all-day-list-item>
+            <ul class="event-list" data-event-list></ul>
+        </li>
+    </template>
+    
+    <template data-template="day-calendar-column">
+        <div class="day-calendar__column" data-day-calendar-column>
+            <ul class="event-list" data-event-list></ul>
         </div>
     </template>
 
