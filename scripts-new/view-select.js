@@ -1,6 +1,6 @@
 export function initViewSelect() {
     const viewButtons = document.querySelectorAll("[data-view-switch]");
-    let currentView = "month";
+    let currentView = "day";
 
     document.dispatchEvent(new CustomEvent("view-change", {
         detail: { view: currentView },
