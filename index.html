@@ -10,7 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="src/output.css" />
-    <!-- <script src="scripts/index.js" type="module"></script> -->
+    <script src="scripts-new/index.js" type="module"></script>
     <title>FinSync-Calendar</title>
 </head>
 
@@ -20,36 +20,42 @@
             <h1 class="font-bold text-5xl">簡單記帳</h1>
         </div>
 
-        <nav class="flex items-center space-x-14">
+        <nav class="flex items-center space-x-10">
             <div class="flex items-center space-x-2">
                 <div class="flex items-center space-x-1">
                     <button
-                        class="text-3xl w-[88px] h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-select-year-button>2025</button>
+                    class="text-2xl px-4 h-[38px] rounded-[10px] text-gray-400/60 bg-gray-400/20  flex items-center justify-center hover:bg-blue-400/60 hover:text-white"
+                    data-nav-today-button>Today</button>
+
                     <button
-                        class="text-3xl w-[54px] h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-select-month-button>12</button>
+                        class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
+                        data-select-year-button></button>
                     <button
-                        class="text-3xl w-[54px] h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-select-day-button>14</button>
-                    <span class="font-medium text-2xl text-white/50">Thu</span>    
+                        class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
+                        data-select-month-button></button>
+                    <button
+                        class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
+                        data-select-day-button></button>
+                    <span class="font-medium text-2xl text-white/50" data-selected-day-of-week></span>
                 </div>
 
-                <button data-previous-month-button>
+                <button class="group" data-nav-pre-button>
                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g opacity="0.7">
+                        <g class="opacity-70 group-hover:opacity-100 transition duration-150 ease-in-out">
                             <path
                                 d="M15 10L10 15M10 15L15 20M10 15H20M27.5 15C27.5 21.9036 21.9036 27.5 15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15Z"
-                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                class="stroke-white group-hover:stroke-gray-200 transtition duration-150 ease-in-out"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </g>
                     </svg>
                 </button>
-                <button data-next-month-button>
+                <button class="group" data-nav-next-button>
                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g opacity="0.7">
+                        <g class="opacity-70 group-hover:opacity-100 transition duration-150 ease-in-out">
                             <path
                                 d="M15 20L20 15M20 15L15 10M20 15H10M27.5 15C27.5 21.9036 21.9036 27.5 15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15Z"
-                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                class="stroke-white group-hover:stroke-gray-200 transition duration-150 ease-in-out"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </g>
                     </svg>
 
@@ -64,6 +70,10 @@
     </header>
 
     <main data-calendar>
+
+    </main>
+
+    <template data-template="month-calendar">
         <div class="w-[981px] flex flex-col mx-auto items-center justify-between mt-8" data-month-calendar>
             <div class="top-0 w-full h-[30px]">
                 <ul class="font-light text-xl grid grid-cols-7 gap-1 text-white/50">
@@ -76,881 +86,66 @@
                     <li class="w-[135px] flex-1 text-center">Sat</li>
                 </ul>
             </div>
-    
-            <div class="flex-1 w-full" >
+
+            <div class="flex-1 w-full">
                 <ul class="grid grid-cols-7 gap-1" data-month-calendar-day-list>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20" data-month-calendar-day-label>
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl" data-day-number>27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800"data-day-entry-count>88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly" data-day-summary>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5" data-expense-total>
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5" data-income-total>
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-                    <li class="w-[135px] h-[95px]">
-                        <button
-                            class="w-full h-full flex flex-col items-center  bg-white/10 rounded-[10px] hover:bg-white/20">
-                            <div
-                                class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
-                                <span class="font-bold text-3xl">27</span>
-                                <span
-                                    class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800">88</span>
-                            </div>
-    
-                            <div class="flex flex-col grow justify-evenly ">
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5">
-                                    -18000</div>
-                                <div
-                                    class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5">
-                                    +36000</div>
-                            </div>
-                        </button>
-                    </li>
-    
                 </ul>
             </div>
 
             <footer class="w-full h-[62px] flex mt-5 justify-between">
                 <div class="space-x-2">
-                    <button class="group transition duration-150 ease-in-out">
+                    <button class="group hover:scale-105 transition duration-150 ease-in-out">
                         <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="31" cy="31" r="31" class="fill-blue-600 group-hover:fill-blue-700 transition duration-150 ease-in-out"/>
-                            <path d="M31 17V45M17 31H45" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>                            
+                            <circle cx="31" cy="31" r="31"
+                                class="fill-blue-600 group-hover:fill-blue-700 transition duration-150 ease-in-out" />
+                            <path d="M31 17V45M17 31H45" stroke="white" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
                     </button>
-                    <button class="group transition duration-150 ease-in-out">
+                    <button class="group hover:scale-105 transition duration-150 ease-in-out">
                         <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="31" cy="31" r="31" class="fill-white/10 group-hover:fill-white/20 transition duration-150 ease-in-out"/>
-                            <path d="M43 47V27M31 47V15M19 47V35" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <circle cx="31" cy="31" r="31"
+                                class="fill-white/10 group-hover:fill-white/20 transition duration-150 ease-in-out" />
+                            <path d="M43 47V27M31 47V15M19 47V35" stroke="white" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
                     </button>
                 </div>
 
-                <div class=" h-full border border-white/10 bg-white/10 rounded-[10px] flex items-center justify-between px-5 space-x-6">
+                <div
+                    class=" h-full border border-white/10 bg-white/10 rounded-[10px] flex items-center justify-between px-5 space-x-6">
                     <span class="font-bold text-3xl">月結餘</span>
                     <span class="font-bold text-5xl text-gray-400">-222220</span>
                 </div>
 
             </footer>
         </div>
-    </main>
+    </template>
 
-    <footer>
+    <template data-template="month-calendar-day">
+        <li class="w-[135px] h-[95px]" data-month-calendar-day>
+            <button
+                class="w-full h-full flex flex-col items-center  rounded-[10px] hover:bg-white/20 bg-white/10"
+                data-month-calendar-day-label>
+                <div
+                    class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
+                    <span class="font-bold text-3xl" data-day-number></span>
+                    <span
+                        class="font-bold text-sm flex items-center justify-center w-[24px] h-[24px] rounded-full bg-white/70 text-gray-800"
+                        data-day-entry-count>0</span>
+                </div>
 
-    </footer>
+                <div class="flex flex-col grow justify-evenly" data-day-summary>
+                    <div class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5"
+                        data-expense-total>
+                        -18000</div>
+                    <div class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5"
+                        data-income-total>
+                        +36000</div>
+                </div>
+            </button>
+        </li>
+    </template>
 
 </body>
 
