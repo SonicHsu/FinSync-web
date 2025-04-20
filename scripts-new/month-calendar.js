@@ -1,7 +1,7 @@
 import { generateMonthCalendarDays, today, isTheSameDay } from "./date.js";
 
 const calendarTemplateElement = document.querySelector("[data-template='month-calendar']");
-const calendarDayTemplateElement =document.querySelector("[data-template='month-calendar-day']");
+const calendarDayTemplateElement = document.querySelector("[data-template='month-calendar-day']");
 
 export function initMonthCalendar(parent, selectedDate) {
     const calendarContent = calendarTemplateElement.content.cloneNode(true);
@@ -10,14 +10,14 @@ export function initMonthCalendar(parent, selectedDate) {
 
     const calendarDays = generateMonthCalendarDays(selectedDate);
 
-    for(const calendarDay of calendarDays) {
+    for (const calendarDay of calendarDays) {
         initCalendarDay(calendarDayListElement, calendarDay, selectedDate)
     }
 
     parent.appendChild(calendarElement);
 }
 
- function initCalendarDay(parent, calendarDay, currentSelectedMonthDate) {
+function initCalendarDay(parent, calendarDay, currentSelectedMonthDate) {
     const calendarDayContent = calendarDayTemplateElement.content.cloneNode(true);
     const calendarDayElement = calendarDayContent.querySelector("[data-month-calendar-day]");
     const calendarDayLabelElement = calendarDayElement.querySelector("[data-month-calendar-day-label]");
@@ -29,16 +29,15 @@ export function initMonthCalendar(parent, selectedDate) {
 
     calendarDayNumber.textContent = calendarDay.getDate();
 
-    if(calendarDay.getMonth() !== currentSelectedMonthDate.getMonth()) {
+    if (calendarDay.getMonth() !== currentSelectedMonthDate.getMonth()) {
         calendarDayElement.classList.add("opacity-25");
     }
 
-    if (isTheSameDay(today(), calendarDay)) {
-        calendarDayLabelElement.classList.remove("bg-white/10");    
-        calendarDayLabelElement.classList.add("bg-blue-600/50");
-        calendarDayLabelElement.classList.add("border");
-        calendarDayLabelElement.classList.add("border-blue-600");
-    }
+    const isToday = isTheSameDay(today(), calendarDay);
+    calendarDayLabelElement.classList.toggle("bg-white/10", !isToday);
+    calendarDayLabelElement.classList.toggle("bg-blue-600/50", isToday);
+    calendarDayLabelElement.classList.toggle("border", isToday);
+    calendarDayLabelElement.classList.toggle("border-blue-600", isToday);
 
     parent.appendChild(calendarDayElement);
- }
+}
