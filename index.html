@@ -24,8 +24,8 @@
             <div class="flex items-center space-x-2">
                 <div class="flex items-center space-x-1">
                     <button
-                    class="text-2xl px-4 h-[38px] rounded-[10px] text-gray-400/60 bg-gray-400/20  flex items-center justify-center hover:bg-blue-400/60 hover:text-white"
-                    data-nav-today-button>Today</button>
+                        class="text-2xl px-4 h-[38px] rounded-[10px] text-gray-400/60 bg-gray-400/20  flex items-center justify-center hover:bg-blue-400/60 hover:text-white"
+                        data-nav-today-button>Today</button>
 
                     <button
                         class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
@@ -73,8 +73,28 @@
 
     </main>
 
-    <dialog data-dialog="entry-form">
-        <h1>Hello Dialog</h1>
+    <div class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-40 hidden" data-dialog-backdrop></div>
+
+    <dialog class="w-[420px] h-[460px] bg-slate-950/50 border border-blue-400/50 rounded-[10px]" data-dialog="entry-form">
+        <div class="text-white flex flex-col items-center">
+            <div class="font-bold  text-3xl mt-7">新增交易紀錄</div>
+
+            <div class="w-[250px] h-[30px] bg-gray-400/50 rounded-[90px] flex items-center justify-center mt-5">
+                <button class="font-bold text-xl text-white/50 flex-1" data-expense-button>支出</button>
+                <button class="font-bold text-xl text-gray-600 flex-1 bg-white rounded-full" data-income-button>收入</button>
+            </div>
+
+            <div class="mt-5 grid grid-cols-4 gap-1" data-entry-category-list>
+                <div class="" data-entry-category="">飲食</div>
+                <div>飲食</div>
+                <div>飲食</div>
+                <div>飲食</div>
+                <div>飲食</div>
+                <div>飲食</div>
+            </div>
+
+        </div>
+        
     </dialog>
 
 
@@ -129,8 +149,7 @@
 
     <template data-template="month-calendar-day">
         <li class="w-[135px] h-[95px]" data-month-calendar-day>
-            <button
-                class="w-full h-full flex flex-col items-center  rounded-[10px] hover:bg-white/20 bg-white/10"
+            <button class="w-full h-full flex flex-col items-center  rounded-[10px] hover:bg-white/20 bg-white/10"
                 data-month-calendar-day-label>
                 <div
                     class="w-full h-[35px] bg-gray-800/50 rounded-t-[10px] top-0 flex items-center justify-between px-2">
@@ -156,7 +175,7 @@
         <div class="w-[981px] h-[670px] flex mx-auto mt-8 justify-between" data-day-calendar>
             <div class="w-[280px] h-[668px] flex flex-col rounded-[10px]">
                 <div class="w-full h-[240px] flex rounded-[10px] bg-gray-800/30" data-mini-calendar></div>
-    
+
                 <footer class="w-full flex space-x-2 mt-4">
                     <button class="group hover:scale-105 transition duration-150 ease-in-out" data-entry-create-button>
                         <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +195,7 @@
                     </button>
                 </footer>
             </div>
-    
+
             <div class="w-[685px] h-[668px] flex flex-col items-center rounded-[10px] bg-gray-800/30">
                 <div class="w-[645px] h-[50px] flex justify-between mt-5">
                     <div class="w-[310px] rounded-[10px] flex items-center justify-between bg-gray-400/50 px-3">
@@ -188,12 +207,14 @@
                         <span class="text-4xl" data-today-income>+45441</span>
                     </div>
                 </div>
-    
+
                 <div class="w-[645px] mt-3">
                     <ul class="flex flex-col" data-entry-list>
-                        <li class="flex items-center justify-between border-b cursor-pointer border-white/20 pb-2 mt-2" data-entry>
+                        <li class="flex items-center justify-between border-b cursor-pointer border-white/20 pb-2 mt-2"
+                            data-entry>
                             <div class="flex items-center space-x-3 px-3">
-                                <span class="w-[18px] h-[18px] rounded-full bg-orange-400 inline-block" data-entry-category-color></span>
+                                <span class="w-[18px] h-[18px] rounded-full bg-orange-400 inline-block"
+                                    data-entry-category-color></span>
                                 <span class="text-2xl" data-entry-category>飲食</span>
                                 <span class="text-2xl text-white/50" data-entry-description>巷口小吃</span>
                             </div>
