@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.button-option {
+  @apply text-xl text-white/50 flex-1
+}
+
+.button-option-selected {
+  @apply text-xl text-gray-600 flex-1 bg-white rounded-full
+}
+
+
+.category-button {
+    @apply w-full h-full font-semibold text-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center cursor-pointer;
+  }
+
+.category-button-selected {
+  @apply w-full h-full font-semibold text-xl text-gray-800 bg-white flex items-center justify-center cursor-pointer;
+}  
+
+
+.dialog-entry-divider {
+  @apply w-full border-t border-blue-400/20 my-4
+}  

@@ -10,9 +10,24 @@ export function initNav() {
     const selectMonthButton = document.querySelector("[data-select-month-button]");
     const selectDayButton = document.querySelector("[data-select-day-button]");
     const weekDaySpan = document.querySelector("[data-selected-day-of-week]");
+    const yearPicker = document.querySelector("[data-select-year-picker]");
+    const monthPicker = document.querySelector("[data-select-month-picker]");
+    const dayPicker = document.querySelector("[data-select-day-picker]");
 
     let selectedDate = today();
-    let selectedView = "month";
+    let selectedView = "day";
+
+    selectYearButton.addEventListener("click", () => {
+        yearPicker.showPicker();
+    })
+
+    selectMonthButton.addEventListener("click", () => {
+        monthPicker.showPicker();
+    })
+
+    selectDayButton.addEventListener("click", () => {
+        dayPicker.showPicker();
+    })
 
     todayButtonElement.addEventListener("click", () => {
         todayButtonElement.dispatchEvent(new CustomEvent("date-change", {

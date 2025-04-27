@@ -9,10 +9,8 @@ export function initViewSelect() {
 
     for (const viewButton of viewButtons) {
         const isActive = viewButton.dataset.viewSwitch === currentView;
-        viewButton.classList.toggle("bg-white", isActive);
-        viewButton.classList.toggle("text-gray-600", isActive);
-        viewButton.classList.toggle("rounded-full", isActive);
-        viewButton.classList.toggle("text-white/50", !isActive);
+        viewButton.classList.toggle("button-option", !isActive);
+        viewButton.classList.toggle("button-option-selected", isActive);
     }
 
 
@@ -22,10 +20,8 @@ export function initViewSelect() {
 
             for (const btn of viewButtons) {
                 const isActive = btn.dataset.viewSwitch === selectedView;
-                btn.classList.toggle("bg-white", isActive);
-                btn.classList.toggle("text-gray-600", isActive);
-                btn.classList.toggle("rounded-full", isActive);
-                btn.classList.toggle("text-white/50", !isActive);
+                btn.classList.toggle("button-option", !isActive);
+                btn.classList.toggle("button-option-selected", isActive);
             }
 
             viewButton.dispatchEvent(new CustomEvent("view-change", {
