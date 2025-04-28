@@ -1,12 +1,12 @@
 import { today } from "./date.js"
 import { initMonthCalendar } from "./month-calendar.js";
 import { initDayCalendar } from "./day-calendar.js";
-import { initEntryCreateButton } from "./entry-create-button.js";
+import { initEntryCreateButtons } from "./entry-create-button.js";
  
 export function initCalendar() {
     const calendarElement = document.querySelector("[data-calendar]");
 
-    let selectedView = "month";
+    let selectedView = "day";
     let selectedDate = today();
 
     function refreshCalendar() {
@@ -17,7 +17,7 @@ export function initCalendar() {
         } else {
             initDayCalendar(calendarElement, selectedDate);
         }
-        initEntryCreateButton();
+        initEntryCreateButtons(selectedDate);
     }
 
     document.addEventListener("view-change", (event) => {

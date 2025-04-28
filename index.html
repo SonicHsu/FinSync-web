@@ -25,24 +25,24 @@
                     <button
                         class="text-2xl px-4 h-[38px] rounded-[10px] text-gray-400/60 bg-gray-400/20  flex items-center justify-center hover:bg-blue-400/60 hover:text-white"
                         data-nav-today-button>Today</button>
-
-                    <button
+                    <button class="flex space-x-1" data-select-date-button>
+                        <div
                         class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-select-year-button></button>
-                    <input type="date" class="absolute inset-0 opacity-0 w-full h-full -z-10" data-select-year-picker />
-
-
-                    <button
+                        data-nav-year></div>
+                    
+                    <div
                         class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-select-month-button></button>
-                    <input type="date" class="absolute inset-0 opacity-0 w-full h-full -z-10" data-select-month-picker />
+                        data-nav-month></div>
 
-                    <button
+                    <div
                         class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-select-day-button></button>
-                    <input type="date" class="absolute inset-0 opacity-0 w-full h-full -z-10" data-select-day-picker />
+                        data-nav-day></div>
+                    </button>
 
-                    <span class="w-12 font-medium text-2xl text-center text-white/50" data-selected-day-of-week></span>
+                    <input type="date" class="absolute inset-0 opacity-0 w-full h-full -z-10" data-select-date-picker />    
+                    
+
+                    <span class="w-12 font-medium text-2xl text-center text-white/50" data-nav-day-of-week></span>
                 </div>
 
                 <button class="group" data-nav-pre-button>
@@ -81,7 +81,7 @@
     <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 hidden" data-dialog-backdrop></div>
 
     <dialog class="w-[420px] bg-slate-950/80 border border-blue-400/50 rounded-[10px]" data-dialog="entry-form">
-        <div class="w-full h-full text-white flex flex-col items-center">
+        <div class="w-full h-full text-white flex flex-col items-center" data-entry-form>
             <div class="font-bold  text-4xl mt-7">新增交易紀錄</div>
 
             <div class="dialog-entry-divider"></div>
@@ -134,7 +134,7 @@
 
                 <div class="relative w-[174px] h-[30px] bg-gray-800 rounded-xl flex items-center justify-between px-3">
                     <span class="text-sm text-gray-400">日期</span>
-                    <span class="font-medium text-xl cursor-pointer z-10" data-entry-date>2025/04/15</span>
+                    <span class="font-medium text-xl cursor-pointer z-10" data-entry-date></span>
                     <input type="date" class="absolute inset-0 opacity-0 w-full h-full" data-entry-date-picker />
                 </div>
             </div>
@@ -144,7 +144,7 @@
                     <span class="text-sm text-gray-400">備註</span>
                     <input
                         class="font-medium text-xl bg-transparent border-none outline-none text-white text-left focus:ring-0 appearance-none w-[300px]"
-                        type="text" inputmode="numeric" />
+                        type="text" inputmode="numeric" data-entry-note />
                 </div>
             </div>
 
@@ -166,12 +166,12 @@
             <div class="w-[368px] flex justify-between mb-5">
                 <button
                     class="w-[174px] h-[40px] text-2xl text-white/50 bg-gray-800 hover:bg-gray-600 rounded-xl flex items-center justify-center"
-                    data-dialog-cancel>
+                    data-dialog-cancel-button>
                     取消
                 </button>
                 <button
                     class="w-[174px] h-[40px] text-2xl text-white bg-blue-600 hover:bg-blue-400 rounded-xl flex items-center justify-center"
-                    data-dialog-confirm>
+                    data-dialog-confirm-button>
                     新增
                 </button>
             </div>
