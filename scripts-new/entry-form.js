@@ -7,7 +7,7 @@ export function initEntryForm() {
     dialogConfirmButton.addEventListener("click", () => {
         const formEntry = formIntoEntry();
 
-        dialogConfirmButton.dispatchEvent(new CustomEvent("event-create", {
+        dialogConfirmButton.dispatchEvent(new CustomEvent("entry-create", {
             detail: {
                 event: formEntry
             },
