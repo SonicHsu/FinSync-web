@@ -1,10 +1,14 @@
 import { initDialog } from "./dialog.js";
+import { initEntryForm } from "./entry-form.js";
 
 export function initEntryFormDialog() {
     const dialog = initDialog("entry-form");
-    const dateDisplay = document.querySelector('[data-entry-date]');
-    const datePicker = document.querySelector('[data-entry-date-picker]');
+    const dateDisplay = document.querySelector("[data-entry-date]");
+    const datePicker = document.querySelector("[data-entry-date-picker]");
+    const entryAmountInput = document.querySelector("[data-entry-amount-input]");
 
+    const entryForm = initEntryForm();
+  
     initEntryOptionSelector("[data-entry-type-button]", "entryTypeButton", "button-option", "button-option-selected");
     initEntryOptionSelector("[data-entry-category]", "entryCategory", "category-button", "category-button-selected");
     initEntryOptionSelector("[data-entry-mode]", "entryMode", "category-button", "category-button-selected");
@@ -24,6 +28,10 @@ export function initEntryFormDialog() {
         }));
     });
 
+    entryAmountInput.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
+
     document.addEventListener("date-change", (event) => {
         const selectedDate = event.detail.date
         updateDateDisplay(selectedDate);
@@ -39,10 +47,9 @@ export function initEntryFormDialog() {
 
 function updateDateDisplay(date) {
     const dateDisplay = document.querySelector('[data-entry-date]');
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    dateDisplay.textContent = `${year}/${month}/${day}`;
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const formattedDate = date.toLocaleString('zh-TW', options);
+    dateDisplay.textContent = formattedDate;
 }
 
 
