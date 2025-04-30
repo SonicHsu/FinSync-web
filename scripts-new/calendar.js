@@ -3,7 +3,7 @@ import { initMonthCalendar } from "./month-calendar.js";
 import { initDayCalendar } from "./day-calendar.js";
 import { initEntryCreateButtons } from "./entry-create-button.js";
  
-export function initCalendar() {
+export function initCalendar(entryStore) {
     const calendarElement = document.querySelector("[data-calendar]");
 
     let selectedView = "day";
@@ -13,9 +13,9 @@ export function initCalendar() {
         calendarElement.replaceChildren();
 
         if (selectedView === "month") {
-            initMonthCalendar(calendarElement, selectedDate);
+            initMonthCalendar(calendarElement, selectedDate, entryStore);
         } else {
-            initDayCalendar(calendarElement, selectedDate);
+            initDayCalendar(calendarElement, selectedDate, entryStore);
         }
         initEntryCreateButtons(selectedDate);
     }
@@ -29,6 +29,11 @@ export function initCalendar() {
         selectedDate = event.detail.date;
         refreshCalendar()
     });
+
+    document.addEventListener("entries-change", () => {
+        refreshCalendar()
+    })
+
 
     refreshCalendar()
 }

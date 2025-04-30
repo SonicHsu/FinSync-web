@@ -1,4 +1,4 @@
-export function initDialog(name) {
+export function initDialog(name, options = {}) {
     const dialogElement = document.querySelector(`[data-dialog="${name}"]`);
     const dialogBackDrop = document.querySelector("[data-dialog-backdrop]");
     const dialogCancelButton = document.querySelector("[data-dialog-cancel-button]");
@@ -17,8 +17,18 @@ export function initDialog(name) {
         dialogBackDrop.classList.add("hidden");
     });
 
+    if(options.closeOnEvents) {
+        for(const eventName of options.closeOnEvents) {
+            document.addEventListener(eventName, () => {
+                dialogElement.close();
+                dialogBackDrop.classList.add("hidden");
+            });
+        }
+    }
+
 
     return {
+        dialogElement,
         open() {
             dialogElement.showModal();
             dialogBackDrop.classList.remove("hidden");
