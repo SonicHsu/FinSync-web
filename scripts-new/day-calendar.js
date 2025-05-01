@@ -1,3 +1,5 @@
+import { initEntry } from "./entry.js";
+
 const calendarTemplateElement = document.querySelector("[data-template='day-calendar']");
 
 export function initDayCalendar(parent, selectedDate, entryStore) {
@@ -10,6 +12,10 @@ export function initDayCalendar(parent, selectedDate, entryStore) {
     const date  = selectedDate;
     const entries = entryStore.getEntriesByDate(date);
     console.log(entries);
+
+    for (const entry of entries) {
+        initEntry(calendarEntryList, entry);
+    }
     
     parent.appendChild(calendarElement);    
 }

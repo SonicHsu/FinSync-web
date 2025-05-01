@@ -26,21 +26,18 @@
                         class="text-2xl px-4 h-[38px] rounded-[10px] text-gray-400/60 bg-gray-400/20  flex items-center justify-center hover:bg-blue-400/60 hover:text-white"
                         data-nav-today-button>Today</button>
                     <button class="flex space-x-1" data-select-date-button>
-                        <div
-                        class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-nav-year></div>
-                    
-                    <div
-                        class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-nav-month></div>
+                        <div class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
+                            data-nav-year></div>
 
-                    <div
-                        class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
-                        data-nav-day></div>
+                        <div class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
+                            data-nav-month></div>
+
+                        <div class="text-3xl px-2 h-[38px] rounded-[10px] bg-white/10 border border-blue-400/50 flex items-center justify-center hover:bg-blue-400/50"
+                            data-nav-day></div>
                     </button>
 
-                    <input type="date" class="absolute inset-0 opacity-0 w-full h-full -z-10" data-select-date-picker />    
-                    
+                    <input type="date" class="absolute inset-0 opacity-0 w-full h-full -z-10" data-select-date-picker />
+
 
                     <span class="w-12 font-medium text-2xl text-center text-white/50" data-nav-day-of-week></span>
                 </div>
@@ -112,11 +109,11 @@
                         <div class="absolute bottom-0 left-0 w-full h-1 bg-pink-400"></div>
                     </li>
                     <li class="relative w-[80px] h-[30px] overflow-hidden rounded-full">
-                        <div class="category-button" data-entry-category="lifestyle">生活</div>
+                        <div class="category-button" data-entry-category="life">生活</div>
                         <div class="absolute bottom-0 left-0 w-full h-1 bg-purple-400"></div>
                     </li>
                     <li class="relative w-[80px] h-[30px] overflow-hidden rounded-full">
-                        <div class="category-button" data-entry-category="others">其他</div>
+                        <div class="category-button" data-entry-category="other">其他</div>
                         <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-400"></div>
                     </li>
                 </ul>
@@ -291,20 +288,22 @@
 
                 <div class="w-[645px] mt-3">
                     <ul class="flex flex-col" data-entry-list>
-                        <li class="flex items-center justify-between border-b cursor-pointer border-white/20 pb-2 mt-2"
-                            data-entry>
-                            <div class="flex items-center space-x-3 px-3">
-                                <span class="w-[18px] h-[18px] rounded-full bg-orange-400 inline-block"
-                                    data-entry-category-color></span>
-                                <span class="text-2xl" data-entry-category>飲食</span>
-                                <span class="text-2xl text-white/50" data-entry-description>巷口小吃</span>
-                            </div>
-                            <div class="text-2xl flex rounded-full bg-gray-400/50 px-4" data-entry-amount>-2551</div>
-                        </li>
                     </ul>
                 </div>
             </div>
         </div>
+    </template>
+
+    <template data-template="entry">
+        <li class="flex items-center justify-between border-b cursor-pointer border-white/20 pb-2 mt-2" data-entry>
+            <div class="flex items-center space-x-3 px-3">
+                <span class="w-[18px] h-[18px] rounded-full inline-block"
+                    data-entry-category-color></span>
+                <span class="text-2xl" data-entry-category></span>
+                <span class="text-2xl text-white/50" data-entry-description></span>
+            </div>
+            <div class="text-2xl flex rounded-full bg-gray-400/50 px-4" data-entry-amount></div>
+        </li>
     </template>
 </body>
 
