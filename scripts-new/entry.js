@@ -8,6 +8,11 @@ export function initEntry(parent, entry) {
     const entryDescriptionElement = entryElement.querySelector("[data-entry-description]");
     const entryAmountElement = entryElement.querySelector("[data-entry-amount]");
 
+    const typeColorMap = {
+        expense: "bg-gray-400/50",
+        income: "bg-blue-400/50"
+    }
+    
     const categoryMap = {
         food: {
             color: "bg-orange-400",
@@ -34,18 +39,22 @@ export function initEntry(parent, entry) {
             label: "其他",
         }
     };
-
+    const typeColorData = typeColorMap[entry.type] || typeColorMap.expense;
     const categoryData = categoryMap[entry.category] || categoryMap.other;
+    const sign = entry.type === "income" ? "+" : "-";
 
-    setCategoryColorClass(entryCategoryColorElement,categoryData.color);
+
+    setColorClass(entryCategoryColorElement,categoryData.color);
     entryCategoryElement.textContent = categoryData.label;
     entryDescriptionElement.textContent = entry.note;
-    entryAmountElement.textContent = entry.amount;
+    setColorClass(entryAmountElement,typeColorData);
+    entryAmountElement.textContent = sign + entry.amount;
+    
 
     parent.appendChild(entryElement);
 }
 
-function setCategoryColorClass(element, newColorClass) {
+function setColorClass(element, newColorClass) {
     for (const cls of element.classList) {
       if (cls.startsWith("bg-")) {
         element.classList.remove(cls);
