@@ -1,12 +1,14 @@
 import { initDialog } from "./dialog.js";
 import { initEntryForm } from "./entry-form.js";
+import { formatDate } from './date.js';
 
 export function initEntryFormDialog() {
     const dialog = initDialog("entry-form", { closeOnEvents: ["entry-create"], });
-    const dateDisplay = document.querySelector("[data-entry-date]");
-    const datePicker = document.querySelector("[data-entry-date-picker]");
-    const entryAmountInput = document.querySelector("[data-entry-amount-input]");
-    const entryNoteInput = document.querySelector("[data-entry-note-input]");
+    const entryFormTitle = dialog.dialogElement.querySelector("[data-entry-form-title]");
+    const dateDisplay = dialog.dialogElement.querySelector("[data-entry-date]");
+    const datePicker = dialog.dialogElement.querySelector("[data-entry-date-picker]");
+    const entryAmountInput = dialog.dialogElement.querySelector("[data-entry-amount-input]");
+    const entryNoteInput = dialog.dialogElement.querySelector("[data-entry-note-input]");
     const typeSelector = initEntryOptionSelector("[data-entry-type-button]", "entryTypeButton", "button-option", "button-option-selected");
     const categorySelector = initEntryOptionSelector("[data-entry-category]", "entryCategory", "category-button", "category-button-selected");
     const modeSelector = initEntryOptionSelector("[data-entry-mode]", "entryMode", "category-button", "category-button-selected");
@@ -33,7 +35,7 @@ export function initEntryFormDialog() {
     datePicker.addEventListener("change", () => {
         const selectedDateStr = datePicker.value;
         const selectedDate = new Date(selectedDateStr);
-        document.dispatchEvent(new CustomEvent("date-change", {
+        datePicker.dispatchEvent(new CustomEvent("date-change", {
             detail: {
                 date: new Date(selectedDate)
             },
@@ -41,29 +43,36 @@ export function initEntryFormDialog() {
         }));
     });
 
-    entryAmountInput.addEventListener("input", (e) => {
-        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    entryAmountInput.addEventListener("input", (event) => {
+        event.target.value = event.target.value.replace(/[^0-9]/g, '');
     });
 
     document.addEventListener("date-change", (event) => {
         const selectedDate = event.detail.date
-        updateDateDisplay(selectedDate);
+        updateDateDisplay(dialog, selectedDate);
     })
 
 
     document.addEventListener("entry-create-request", (event) => {
         const selectedDate = event.detail.date
-        updateDateDisplay(selectedDate);
+        entryFormTitle.textContent = "新增交易紀錄";
+        updateDateDisplay(dialog, selectedDate);
         resetEntryForm();
         dialog.open();
     });
+
+    document.addEventListener("entry-edit-request", (event) => {
+        entryFormTitle.textContent = "編輯交易紀錄";
+        dialog.open();
+    });
+
+    
+
 }
 
-function updateDateDisplay(date) {
-    const dateDisplay = document.querySelector('[data-entry-date]');
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formattedDate = date.toLocaleString('zh-TW', options);
-    dateDisplay.textContent = formattedDate;
+function updateDateDisplay(dialog, date) {
+    const dateDisplay = dialog.dialogElement.querySelector('[data-entry-date]');
+    dateDisplay.textContent = formatDate(date);
 }
 
 

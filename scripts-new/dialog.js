@@ -1,7 +1,7 @@
 export function initDialog(name, options = {}) {
     const dialogElement = document.querySelector(`[data-dialog="${name}"]`);
     const dialogBackDrop = document.querySelector("[data-dialog-backdrop]");
-    const dialogCancelButton = document.querySelector("[data-dialog-cancel-button]");
+    const dialogCancelButtons = document.querySelectorAll("[data-dialog-cancel-button]");
     
 
 
@@ -12,10 +12,13 @@ export function initDialog(name, options = {}) {
         }
     })
 
-    dialogCancelButton.addEventListener("click", (event) => {
-        dialogElement.close();
-        dialogBackDrop.classList.add("hidden");
-    });
+    for(const dialogCancelButton of dialogCancelButtons){
+        dialogCancelButton.addEventListener("click", () => {
+            dialogElement.close();
+            dialogBackDrop.classList.add("hidden");
+        });
+    }
+
 
     if(options.closeOnEvents) {
         for(const eventName of options.closeOnEvents) {
