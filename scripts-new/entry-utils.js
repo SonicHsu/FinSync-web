@@ -38,3 +38,36 @@ export function setColorClass(element, newColorClass) {
     }
     element.classList.add(newColorClass);
   }
+
+export function initEntryOptionSelector(parent, selector, dataKey, defaultClass, selectedClass) {
+    const buttons = parent.querySelectorAll(selector);
+    let defaultButton = null;
+
+    for (const button of buttons) {
+        if (button.classList.contains(selectedClass)) {
+            defaultButton = button;
+        }
+
+        button.addEventListener("click", () => {
+            setSelected(button.dataset[dataKey]);
+        });
+    }
+
+    function resetToDefault() {
+        if (!defaultButton) return;
+        setSelected(defaultButton.dataset[dataKey]);
+    }
+
+    function setSelected(value) {
+        for (const btn of buttons) {
+            const isSelected = btn.dataset[dataKey] === value;
+            btn.classList.toggle(defaultClass, !isSelected);
+            btn.classList.toggle(selectedClass, isSelected);
+        }
+    }
+
+    return {
+        resetToDefault,
+        setSelected,
+    };
+}

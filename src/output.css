@@ -594,32 +594,17 @@ video {
   z-index: 40;
 }
 
-.m-3 {
-  margin: 0.75rem;
-}
-
 .m-4 {
   margin: 1rem;
+}
+
+.m-5 {
+  margin: 1.25rem;
 }
 
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.mx-1 {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-}
-
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 
 .mb-5 {
@@ -710,6 +695,10 @@ video {
   height: 50px;
 }
 
+.h-\[550px\] {
+  height: 550px;
+}
+
 .h-\[62px\] {
   height: 62px;
 }
@@ -740,10 +729,6 @@ video {
 
 .w-24 {
   width: 6rem;
-}
-
-.w-6 {
-  width: 1.5rem;
 }
 
 .w-\[120px\] {
@@ -810,10 +795,6 @@ video {
   width: 100%;
 }
 
-.w-\[90\%\] {
-  width: 90%;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -844,10 +825,6 @@ video {
   grid-template-columns: 1fr auto 1fr;
 }
 
-.grid-cols-\[2fr_auto_2fr\] {
-  grid-template-columns: 2fr auto 2fr;
-}
-
 .flex-col {
   flex-direction: column;
 }
@@ -874,10 +851,6 @@ video {
 
 .gap-1 {
   gap: 0.25rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
 }
 
 .gap-4 {
@@ -916,6 +889,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .rounded-\[10px\] {
@@ -1083,14 +1060,6 @@ video {
   stroke: #fff;
 }
 
-.p-3 {
-  padding: 0.75rem;
-}
-
-.p-2 {
-  padding: 0.5rem;
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1109,11 +1078,6 @@ video {
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .px-6 {
@@ -1329,6 +1293,23 @@ video {
   border-color: rgb(96 165 250 / 0.2);
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -1382,4 +1363,4 @@ video {
 
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
-}  
+}

@@ -171,13 +171,14 @@
                 <button
                     class="w-[174px] h-[40px] text-2xl text-white bg-blue-600 hover:bg-blue-400 rounded-xl flex items-center justify-center"
                     data-dialog-confirm-button>
-                    新增
+                    確認
                 </button>
             </div>
         </div>
     </dialog>
 
-    <dialog class="w-[420px] bg-slate-950/80 border border-blue-400/50 rounded-[10px] outline-none ring-0" data-dialog="entry-detail">
+    <dialog class="w-[420px] bg-slate-950/80 border border-blue-400/50 rounded-[10px] outline-none ring-0"
+        data-dialog="entry-detail">
         <div class="w-full h-full text-white flex flex-col items-center px-6" data-entry-detail>
             <div class="grid grid-cols-[1fr_auto_1fr] items-center mt-4 w-full">
                 <div></div>
@@ -225,12 +226,34 @@
             </div>
 
             <div class="w-full mt-4">
-                <div class="w-full text-2xl text-white/50 items-center rounded-xl bg-gray-800/50 px-2 py-1" data-entry-detail-note></div>
+                <div class="w-full text-2xl text-white/50 items-center rounded-xl bg-gray-800/50 px-2 py-1"
+                    data-entry-detail-note></div>
             </div>
 
             <div class="text-2xl m-4" data-entry-detail-date></div>
         </div>
     </dialog>
+
+    <dialog class="w-[420px] bg-slate-950/80 border border-blue-400/50 rounded-[10px]"
+        data-dialog="entry-delete">
+        <div class="w-full h-full text-white flex flex-col items-center" data-entry-delete>
+            <div class="text-center text-3xl font-bold mt-5" data-entry-detail-title>是否確認刪除這筆紀錄？</div>
+
+            <div class="w-[368px] flex justify-between m-5">
+                <button
+                    class="w-[174px] h-[40px] text-2xl text-white/50 bg-gray-800 hover:bg-gray-600 rounded-xl flex items-center justify-center outline-none"
+                    data-dialog-cancel-button>
+                    取消
+                </button>
+                <button
+                    class="w-[174px] h-[40px] text-2xl text-white bg-blue-600 hover:bg-blue-400 rounded-xl flex items-center justify-center outline-none"
+                    data-dialog-confirm-button>
+                    確認
+                </button>
+            </div>
+        </div>
+    </dialog>
+
 
 
     <template data-template="month-calendar">
@@ -343,8 +366,8 @@
                     </div>
                 </div>
 
-                <div class="w-[645px] mt-3">
-                    <ul class="flex flex-col" data-entry-list>
+                <div class="w-[645px] mt-3 h-[550px] overflow-y-auto custom-scrollbar">
+                    <ul class="flex flex-col px-4" data-entry-list>
                     </ul>
                 </div>
             </div>

@@ -13,6 +13,34 @@ export function initEntryStore() {
         }));
     });
 
+    document.addEventListener("entry-edit", (event) => {
+        const editedEntry = event.detail.entry;
+        const entries = getEntryForLocalStorage().map((entry) => {
+            return entry.id === editedEntry.id ? editedEntry : entry;
+        });
+        saveEntryIntoLocalStorage(entries);
+        console.log("修改完成")
+
+        document.dispatchEvent(new CustomEvent("entries-change", {
+            bubbles : true
+        }));
+    });
+
+    document.addEventListener("entry-delete", (event) => {
+        const deletedEntry = event.detail.entry;
+        const entries = getEntryForLocalStorage().filter((entry) => {
+            return entry.id !== deletedEntry.id ;
+        });
+        saveEntryIntoLocalStorage(entries);
+        console.log("修改完成")
+
+        document.dispatchEvent(new CustomEvent("entries-change", {
+            bubbles : true
+        }));
+    });
+
+
+
     return {
         getEntriesByDate(date) {
             const entries = getEntryForLocalStorage(); 

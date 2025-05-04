@@ -18,8 +18,15 @@ export function initEntryDetailDialog() {
 
     editButtonElement.addEventListener("click", () => {
         dialog.close()
-        console.log(currentEvent);
         editButtonElement.dispatchEvent(new CustomEvent("entry-edit-request", {
+            detail: { entry: currentEvent, },
+            bubbles: true
+        }));
+    });
+
+    deleteButtonElement.addEventListener("click", () => {
+        dialog.close()
+        editButtonElement.dispatchEvent(new CustomEvent("entry-delete-request", {
             detail: { entry: currentEvent, },
             bubbles: true
         }));
