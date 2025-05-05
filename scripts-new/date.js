@@ -49,7 +49,7 @@ export function generateMonthCalendarDays(currentDate) {
     const calendarDays = [];
 
     const lastDayOfPreviousMonthDate = getLastDayOfMonthDate(
-            subtractMonths(currentDate, 1)
+        subtractMonths(currentDate, 1)
     );
 
     const lastDayOfPreviousMonthWeekDay = lastDayOfPreviousMonthDate.getDay();
@@ -92,4 +92,17 @@ function getLastDayOfMonthDate(date) {
 export function formatDate(date) {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return date.toLocaleString('zh-TW', options);
+}
+
+export function formatDateForStats(date) {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy} -${mm} -${dd}`; 
+}
+
+export function formatMonthForStats(date) {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    return `${ yyyy } -${ mm }`;  
 }

@@ -1,23 +1,32 @@
-import { generateMonthCalendarDays, today, isTheSameDay } from "./date.js";
+import { generateMonthCalendarDays, today, isTheSameDay, formatDateForStats } from "./date.js";
+import { getDateTypeTotals } from "./calculator.js";
 
 const calendarTemplateElement = document.querySelector("[data-template='month-calendar']");
 const calendarDayTemplateElement = document.querySelector("[data-template='month-calendar-day']");
 
-export function initMonthCalendar(parent, selectedDate) {
+export function initMonthCalendar(parent, selectedDate, entryStore) {
     const calendarContent = calendarTemplateElement.content.cloneNode(true);
     const calendarElement = calendarContent.querySelector("[data-month-calendar]");
     const calendarDayListElement = calendarElement.querySelector("[data-month-calendar-day-list]");
+    const calendarDayMonthTotal = calendarElement.querySelector("[data-month-total]");
 
     const calendarDays = generateMonthCalendarDays(selectedDate);
 
+    let totalExpense = 0;
+    let totalIncome = 0;
+
     for (const calendarDay of calendarDays) {
-        initCalendarDay(calendarDayListElement, calendarDay, selectedDate)
+        const { expense, income } = initCalendarDay(calendarDayListElement, calendarDay, selectedDate, entryStore);
+        totalExpense += expense;
+        totalIncome += income;
     }
+
+    calendarDayMonthTotal.textContent = totalIncome - totalExpense;
 
     parent.appendChild(calendarElement);
 }
 
-function initCalendarDay(parent, calendarDay, currentSelectedMonthDate) {
+function initCalendarDay(parent, calendarDay, currentSelectedMonthDate, entryStore) {
     const calendarDayContent = calendarDayTemplateElement.content.cloneNode(true);
     const calendarDayElement = calendarDayContent.querySelector("[data-month-calendar-day]");
     const calendarDayLabelElement = calendarDayElement.querySelector("[data-month-calendar-day-label]");
@@ -26,6 +35,7 @@ function initCalendarDay(parent, calendarDay, currentSelectedMonthDate) {
     const calendarDaySummary = calendarDayLabelElement.querySelector("[data-day-summary]");
     const calendarDayExpenseTotal = calendarDaySummary.querySelector("[data-expense-total]");
     const calendarDayIncomeTotal = calendarDaySummary.querySelector("[data-income-total]");
+    
 
     calendarDayNumber.textContent = calendarDay.getDate();
 
@@ -39,5 +49,24 @@ function initCalendarDay(parent, calendarDay, currentSelectedMonthDate) {
     calendarDayLabelElement.classList.toggle("border", isToday);
     calendarDayLabelElement.classList.toggle("border-blue-600", isToday);
 
+    const date  = calendarDay;  
+    const dataStats = formatDateForStats(date);
+    const entries = entryStore.getEntriesByDate(date);
+    const entriesCount = entries.length
+    const entriesTotal = getDateTypeTotals(entries);
+
+    const expense = entriesTotal[dataStats]?.totalExpense || 0;
+    const income = entriesTotal[dataStats]?.totalIncome || 0;
+    
+    calendarDayExpenseTotal.textContent = expense;
+    calendarDayIncomeTotal.textContent = income;
+    calendarDayEntryCount.textContent = entriesCount;
+    console.log(typeof income)
+    
+    calendarDayExpenseTotal.classList.toggle("hidden", expense === 0);
+    calendarDayIncomeTotal.classList.toggle("hidden", income === 0);
+  
     parent.appendChild(calendarDayElement);
+
+    return { expense, income };
 }

@@ -237,7 +237,7 @@
     <dialog class="w-[420px] bg-slate-950/80 border border-blue-400/50 rounded-[10px]"
         data-dialog="entry-delete">
         <div class="w-full h-full text-white flex flex-col items-center" data-entry-delete>
-            <div class="text-center text-3xl font-bold mt-5" data-entry-detail-title>是否確認刪除這筆紀錄？</div>
+            <div class="text-center text-3xl font-bold mt-5" data-entry-delete-title>是否確認刪除這筆紀錄？</div>
 
             <div class="w-[368px] flex justify-between m-5">
                 <button
@@ -298,7 +298,7 @@
                 <div
                     class=" h-full border border-white/10 bg-white/10 rounded-[10px] flex items-center justify-between px-5 space-x-6">
                     <span class="font-bold text-3xl">月結餘</span>
-                    <span class="font-bold text-5xl text-gray-400">-222220</span>
+                    <span class="font-bold text-5xl text-gray-400" data-month-total>-222220</span>
                 </div>
 
             </footer>
@@ -319,11 +319,9 @@
 
                 <div class="flex flex-col grow justify-evenly" data-day-summary>
                     <div class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5"
-                        data-expense-total>
-                        -18000</div>
+                        data-expense-total></div>
                     <div class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5"
-                        data-income-total>
-                        +36000</div>
+                        data-income-total></div>
                 </div>
             </button>
         </li>
@@ -358,11 +356,11 @@
                 <div class="w-[645px] h-[50px] flex justify-between mt-5">
                     <div class="w-[310px] rounded-[10px] flex items-center justify-between bg-gray-400/50 px-3">
                         <span class="font-semibold text-2xl">當日支出</span>
-                        <span class="text-4xl" data-today-expense>-25441</span>
+                        <span class="text-4xl" data-today-expense></span>
                     </div>
                     <div class="w-[310px] rounded-[10px] flex items-center justify-between bg-blue-400/50 px-3">
                         <span class="font-semibold text-2xl">當日收入</span>
-                        <span class="text-4xl" data-today-income>+45441</span>
+                        <span class="text-4xl" data-today-income></span>
                     </div>
                 </div>
 
