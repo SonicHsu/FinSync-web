@@ -44,10 +44,24 @@ function initCalendarDay(parent, calendarDay, currentSelectedMonthDate, entrySto
     }
 
     const isToday = isTheSameDay(today(), calendarDay);
-    calendarDayLabelElement.classList.toggle("bg-white/10", !isToday);
-    calendarDayLabelElement.classList.toggle("bg-blue-600/50", isToday);
-    calendarDayLabelElement.classList.toggle("border", isToday);
-    calendarDayLabelElement.classList.toggle("border-blue-600", isToday);
+    calendarDayLabelElement.classList.toggle("calendar-normal", !isToday);
+    calendarDayLabelElement.classList.toggle("calendar-today", isToday);
+
+    calendarDayLabelElement.addEventListener("click", () => {
+        document.dispatchEvent(new CustomEvent("date-change", {
+            detail: {
+                date: calendarDay
+            },
+            bubbles: true
+        }));
+    
+        document.dispatchEvent(new CustomEvent("view-change", {
+            detail: {
+                view: "day"
+            },
+            bubbles: true
+        }) )
+    })
 
     const date  = calendarDay;  
     const dataStats = formatDateForStats(date);
@@ -61,7 +75,6 @@ function initCalendarDay(parent, calendarDay, currentSelectedMonthDate, entrySto
     calendarDayExpenseTotal.textContent = expense;
     calendarDayIncomeTotal.textContent = income;
     calendarDayEntryCount.textContent = entriesCount;
-    console.log(typeof income)
     
     calendarDayExpenseTotal.classList.toggle("hidden", expense === 0);
     calendarDayIncomeTotal.classList.toggle("hidden", income === 0);

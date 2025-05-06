@@ -24,7 +24,49 @@ export function initEntryFormDialog() {
         modeSelector.resetToDefault();
     };
 
+
+
     const entryForm = initEntryForm(dialog.dialogElement, resetEntryForm);
+
+
+    const expenseCategoryList = entryFormElement.querySelector('[data-entry-category-list-expense]');
+    const incomeCategoryList = entryFormElement.querySelector('[data-entry-category-list-income]');
+
+    // 用物件清楚對應「支出」和「收入」的分類清單
+    const categoryListsByType = {
+        expense: expenseCategoryList,
+        income: incomeCategoryList,
+    };
+
+    // 監聽交易類型切換（支出 / 收入）
+    entryFormElement.addEventListener("entryTypeChange", (event) => {
+        console.log("聽到了1");
+        const { key, value } = event.detail;
+
+        if (key !== "entryTypeButton") return;
+
+        console.log("聽到了2");
+        console.log(event);
+
+        // 先全部隱藏分類清單
+        for (const list of Object.values(categoryListsByType)) {
+            list.classList.add("hidden");
+        }
+
+        // 顯示目前選中的類型對應的分類清單
+        const currentList = categoryListsByType[value];
+        currentList.classList.remove("hidden");
+
+        let currentCategorySelector = null;
+        
+        currentCategorySelector = initEntryOptionSelector(
+            currentList,
+            "[data-entry-category]",
+            "entryCategory",
+            "category-button",
+            "category-button-selected"
+        );
+    });
 
     dialog.dialogElement.addEventListener("close", () => {
         resetEntryForm();
@@ -70,7 +112,7 @@ export function initEntryFormDialog() {
         dialog.open();
     });
 
-    
+
 
 }
 

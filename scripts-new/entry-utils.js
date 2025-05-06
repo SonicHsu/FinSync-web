@@ -24,20 +24,37 @@ export const categoryMap = {
         color: "bg-purple-400",
         label: "生活",
     },
-    other: {
+    expenseOther: {
         color: "bg-gray-400",
         label: "其他",
-    }
+    },
+
+    salary: {
+        color: "bg-yellow-400",
+        label: "薪資",
+    },
+    bonus: {
+        color: "bg-green-400",
+        label: "獎金",
+    },
+    investment: {
+        color: "bg-indigo-400",
+        label: "投資",
+    },
+    incomeOther: {
+        color: "bg-neutral-400",
+        label: "其他",
+    },
 };
 
 export function setColorClass(element, newColorClass) {
     for (const cls of element.classList) {
-      if (cls.startsWith("bg-")) {
-        element.classList.remove(cls);
-      }
+        if (cls.startsWith("bg-")) {
+            element.classList.remove(cls);
+        }
     }
     element.classList.add(newColorClass);
-  }
+}
 
 export function initEntryOptionSelector(parent, selector, dataKey, defaultClass, selectedClass) {
     const buttons = parent.querySelectorAll(selector);
@@ -49,8 +66,18 @@ export function initEntryOptionSelector(parent, selector, dataKey, defaultClass,
         }
 
         button.addEventListener("click", () => {
-            setSelected(button.dataset[dataKey]);
-        });
+            const value = button.dataset[dataKey];
+            setSelected(value);
+
+            // 發出事件，通知外部
+            button.dispatchEvent(new CustomEvent("entryTypeChange", {
+                detail: {
+                    key: dataKey,
+                    value: value,
+                },
+                bubbles: true
+            }))
+        })
     }
 
     function resetToDefault() {
