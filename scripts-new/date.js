@@ -98,11 +98,36 @@ export function formatDateForStats(date) {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const dd = String(date.getDate()).padStart(2, '0');
-    return `${yyyy} -${mm} -${dd}`; 
+    return `${yyyy} -${mm} -${dd}`;
 }
 
 export function formatMonthForStats(date) {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
-    return `${ yyyy } -${ mm }`;  
+    return `${yyyy} -${mm}`;
 }
+
+export function initDatePicker(entryFormElement) {
+    const datePicker = entryFormElement.querySelector("[data-entry-date-picker]");
+    const dateDisplay = entryFormElement.querySelector("[data-entry-date]");
+
+
+    dateDisplay.addEventListener("click", () => datePicker.showPicker());
+
+    datePicker.addEventListener("change", () => {
+        const selectedDateStr = datePicker.value;
+        const selectedDate = new Date(selectedDateStr);
+
+        datePicker.dispatchEvent(new CustomEvent("dialog-date-change", {
+            detail: { date: selectedDate },
+            bubbles: true
+        }));
+    });
+
+}
+
+export function updateDateDisplay(entryFormElement, date) {
+    const dateDisplay = entryFormElement.querySelector("[data-entry-date]");
+    dateDisplay.textContent = formatDate(date);
+}
+

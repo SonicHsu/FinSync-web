@@ -56,7 +56,7 @@ export function setColorClass(element, newColorClass) {
     element.classList.add(newColorClass);
 }
 
-export function initEntryOptionSelector(parent, selector, dataKey, defaultClass, selectedClass) {
+export function initEntryOptionSelector(parent, selector, dataKey, defaultClass, selectedClass, eventName) {
     const buttons = parent.querySelectorAll(selector);
     let defaultButton = null;
 
@@ -70,7 +70,7 @@ export function initEntryOptionSelector(parent, selector, dataKey, defaultClass,
             setSelected(value);
 
             // 發出事件，通知外部
-            button.dispatchEvent(new CustomEvent("entryTypeChange", {
+            button.dispatchEvent(new CustomEvent(eventName, {
                 detail: {
                     key: dataKey,
                     value: value,
@@ -97,4 +97,50 @@ export function initEntryOptionSelector(parent, selector, dataKey, defaultClass,
         resetToDefault,
         setSelected,
     };
+}
+
+
+
+function hideAllCategoryLists(categoryListsByType) {
+  for (const list of Object.values(categoryListsByType)) {
+    list.classList.add("hidden");
+  }
+}
+
+export function resetEntryForm(selectors, categoryListsByType, defaultEntryType = "expense") {
+    const {
+      entryAmountInput,
+      entryNoteInput,
+      typeSelector,
+      expenseSelector,
+      incomeSelector,
+      modeSelector,
+    } = selectors;
+  
+    // 重設輸入欄位
+    entryAmountInput.value = "";
+    entryNoteInput.value = "";
+  
+    // 重設所有選擇器
+    typeSelector.resetToDefault();
+    expenseSelector.resetToDefault();
+    incomeSelector.resetToDefault();
+    modeSelector.resetToDefault();
+  
+    // 顯示預設分類清單
+    hideAllCategoryLists(categoryListsByType);
+    categoryListsByType[defaultEntryType].classList.remove("hidden");
+  }
+
+export function initDefaultCategoryList(categoryListsByType, defaultEntryType) {
+  hideAllCategoryLists(categoryListsByType);
+  categoryListsByType[defaultEntryType].classList.remove("hidden");
+}
+
+export function initCategorySwitcher(entryFormElement, categoryListsByType) {
+  entryFormElement.addEventListener("entryTypeChange", (event) => {
+    const { value } = event.detail;
+    hideAllCategoryLists(categoryListsByType);
+    categoryListsByType[value].classList.remove("hidden");
+  });
 }
