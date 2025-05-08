@@ -1,6 +1,6 @@
 import { validAmount, parseDate, validNote } from "./validators.js";
 import { generateEntryId } from "./entry.js";
-import { initEntryOptionSelector } from "./entry-utils.js";
+import { initEntryFormSelectors } from "./entry-form-selector.js";
 import { formatDate } from "./date.js";
 
 export function initEntryForm(parent, resetEntryForm) {
@@ -61,9 +61,9 @@ function fillEntryEditDialog(entryFormElement, entry) {
   const entryAmountInput = entryFormElement.querySelector("[data-entry-amount-input]");
   const entryDate = entryFormElement.querySelector("[data-entry-date]");
   const entryNoteInput = entryFormElement.querySelector("[data-entry-note-input]");
-  const typeSelector = initEntryOptionSelector(entryFormElement, "[data-entry-type-button]", "entryTypeButton", "button-option", "button-option-selected");
-  const categorySelector = initEntryOptionSelector(entryFormElement, "[data-entry-category]", "entryCategory", "category-button", "category-button-selected");
-  const modeSelector = initEntryOptionSelector(entryFormElement, "[data-entry-mode]", "entryMode", "category-button", "category-button-selected");
+  const { typeSelector, modeSelector, expenseSelector, incomeSelector} = initEntryFormSelectors(entryFormElement, "edit");
+  const categorySelector = entry.type === "expense" ? expenseSelector : incomeSelector;
+  
 
   entryIdElement.dataset.id = entry.id;
   entryAmountInput.value = entry.amount;
@@ -79,7 +79,18 @@ function formIntoEntry(entryFormElement) {
   const entryIdElement = entryFormElement.querySelector("[data-entry-id]");
   const id = entryIdElement.dataset.id
   const selectedType = entryFormElement.querySelector('.button-option-selected[data-entry-type-button]')?.dataset.entryTypeButton;
-  const selectedCategory = entryFormElement.querySelector('.category-button-selected[data-entry-category]')?.dataset.entryCategory;
+  
+  let selectedCategory
+  if(selectedType === "expense"){
+    const categoryListExpense = entryFormElement.querySelector("[data-entry-category-list-expense]");
+    selectedCategory = categoryListExpense.querySelector('.category-button-selected[data-entry-category]')?.dataset.entryCategory;
+  }
+  
+  if(selectedType === "income"){
+    const categoryListIncome = entryFormElement.querySelector("[data-entry-category-list-income]");
+    selectedCategory = categoryListIncome.querySelector('.category-button-selected[data-entry-category]')?.dataset.entryCategory;
+  }
+    
   const entryAmountInput = entryFormElement.querySelector("[data-entry-amount-input]");
   const entryDate = entryFormElement.querySelector("[data-entry-date]");
   const entryNoteInput = entryFormElement.querySelector("[data-entry-note-input]");

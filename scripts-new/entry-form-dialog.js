@@ -1,6 +1,6 @@
 import { initDialog } from "./dialog.js";
 import { initEntryForm } from "./entry-form.js";
-import { resetEntryForm, initDefaultCategoryList, initCategorySwitcher } from "./entry-utils.js"
+import { resetEntryForm, initCategorySwitcher } from "./entry-utils.js"
 import { initDatePicker, updateDateDisplay } from "./date.js";
 import { initEntryFormSelectors } from "./entry-form-selector.js";
 

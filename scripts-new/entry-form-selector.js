@@ -2,7 +2,7 @@ import { initEntryOptionSelector } from "./entry-utils.js";
 
 
 
-export function initEntryFormSelectors(entryFormElement) {
+export function initEntryFormSelectors(entryFormElement, mode = "create") {
   // 類型選擇器（支出 / 收入）
   const typeSelector = initEntryOptionSelector(
     entryFormElement,
@@ -10,7 +10,8 @@ export function initEntryFormSelectors(entryFormElement) {
     "entryTypeButton",
     "button-option",
     "button-option-selected",
-    "entryTypeChange"
+    "entryTypeChange",
+    mode === "edit"
   );
 
   // 模式選擇器

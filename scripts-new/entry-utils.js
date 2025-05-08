@@ -56,7 +56,7 @@ export function setColorClass(element, newColorClass) {
     element.classList.add(newColorClass);
 }
 
-export function initEntryOptionSelector(parent, selector, dataKey, defaultClass, selectedClass, eventName) {
+export function initEntryOptionSelector(parent, selector, dataKey, defaultClass, selectedClass, eventName, syncCategoryByType = false) {
     const buttons = parent.querySelectorAll(selector);
     let defaultButton = null;
 
@@ -67,17 +67,8 @@ export function initEntryOptionSelector(parent, selector, dataKey, defaultClass,
 
         button.addEventListener("click", () => {
             const value = button.dataset[dataKey];
-            setSelected(value);
-
-            // 發出事件，通知外部
-            button.dispatchEvent(new CustomEvent(eventName, {
-                detail: {
-                    key: dataKey,
-                    value: value,
-                },
-                bubbles: true
-            }))
-        })
+            setSelected(value, true);
+        });
     }
 
     function resetToDefault() {
@@ -85,13 +76,24 @@ export function initEntryOptionSelector(parent, selector, dataKey, defaultClass,
         setSelected(defaultButton.dataset[dataKey]);
     }
 
-    function setSelected(value) {
+    function setSelected(value, triggerByClick = false) {
         for (const btn of buttons) {
-            const isSelected = btn.dataset[dataKey] === value;
-            btn.classList.toggle(defaultClass, !isSelected);
-            btn.classList.toggle(selectedClass, isSelected);
+          const isSelected = btn.dataset[dataKey] === value;
+      
+          btn.classList.toggle(defaultClass, !isSelected);
+          btn.classList.toggle(selectedClass, isSelected);
+      
+          if (isSelected && (triggerByClick || syncCategoryByType)) {
+            btn.dispatchEvent(new CustomEvent(eventName, {
+              detail: {
+                key: dataKey,
+                value: value,
+              },
+              bubbles: true
+            }));
+          }
         }
-    }
+      }
 
     return {
         resetToDefault,
@@ -131,11 +133,6 @@ export function resetEntryForm(selectors, categoryListsByType, defaultEntryType 
     hideAllCategoryLists(categoryListsByType);
     categoryListsByType[defaultEntryType].classList.remove("hidden");
   }
-
-export function initDefaultCategoryList(categoryListsByType, defaultEntryType) {
-  hideAllCategoryLists(categoryListsByType);
-  categoryListsByType[defaultEntryType].classList.remove("hidden");
-}
 
 export function initCategorySwitcher(entryFormElement, categoryListsByType) {
   entryFormElement.addEventListener("entryTypeChange", (event) => {
