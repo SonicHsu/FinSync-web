@@ -19,4 +19,3 @@ initEntryFormDialog();
 initViewSelect();
 
 
-
