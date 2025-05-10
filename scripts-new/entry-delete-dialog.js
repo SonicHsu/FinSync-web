@@ -19,7 +19,4 @@ export function initDeleteDialog() {
             bubbles: true
         }))
     })
-
-
-
 }

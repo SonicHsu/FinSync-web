@@ -33,8 +33,3 @@ export function initEntry(parent, entry) {
 
     parent.appendChild(entryElement);
 }
-
-
-export function generateEntryId() {
-    return Date.now();
-}

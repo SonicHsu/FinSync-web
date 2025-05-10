@@ -1,11 +1,10 @@
 import { validAmount, parseDate, validNote } from "./validators.js";
-import { generateEntryId } from "./entry.js";
 import { initEntryFormSelectors } from "./entry-form-selector.js";
 import { formatDate } from "./date.js";
 
 export function initEntryForm(parent, resetEntryForm) {
-    const entryFormElement = parent.querySelector("[data-entry-form]");
-    const dialogConfirmButton = entryFormElement.querySelector("[data-dialog-confirm-button]");
+  const entryFormElement = parent.querySelector("[data-entry-form]");
+  const dialogConfirmButton = entryFormElement.querySelector("[data-dialog-confirm-button]");
 
   let mode = "create";
 
@@ -13,7 +12,7 @@ export function initEntryForm(parent, resetEntryForm) {
     try {
       const formEntry = formIntoEntry(entryFormElement);
 
-      if(mode === "create"){
+      if (mode === "create") {
         dialogConfirmButton.dispatchEvent(new CustomEvent("entry-create", {
           detail: {
             entry: formEntry
@@ -22,7 +21,7 @@ export function initEntryForm(parent, resetEntryForm) {
         }));
       }
 
-      if(mode === "edit"){
+      if (mode === "edit") {
         dialogConfirmButton.dispatchEvent(new CustomEvent("entry-edit", {
           detail: {
             entry: formEntry
@@ -48,6 +47,7 @@ export function initEntryForm(parent, resetEntryForm) {
     },
     switchToEditMode(entry) {
       mode = "edit";
+      console.log(entry);
       fillEntryEditDialog(entryFormElement, entry);
     }
 
@@ -61,11 +61,11 @@ function fillEntryEditDialog(entryFormElement, entry) {
   const entryAmountInput = entryFormElement.querySelector("[data-entry-amount-input]");
   const entryDate = entryFormElement.querySelector("[data-entry-date]");
   const entryNoteInput = entryFormElement.querySelector("[data-entry-note-input]");
-  const { typeSelector, modeSelector, expenseSelector, incomeSelector} = initEntryFormSelectors(entryFormElement, "edit");
+  const { typeSelector, modeSelector, expenseSelector, incomeSelector } = initEntryFormSelectors(entryFormElement, "edit");
   const categorySelector = entry.type === "expense" ? expenseSelector : incomeSelector;
-  
 
-  entryIdElement.dataset.id = entry.id;
+
+  entryIdElement.dataset.docId = entry.docId;
   entryAmountInput.value = entry.amount;
   entryDate.textContent = formatDate(entry.date);
   entryNoteInput.value = entry.note;
@@ -77,7 +77,7 @@ function fillEntryEditDialog(entryFormElement, entry) {
 
 function formIntoEntry(entryFormElement) {
   const entryIdElement = entryFormElement.querySelector("[data-entry-id]");
-  const id = entryIdElement.dataset.id
+  const docId = entryIdElement.dataset.docId
   const selectedType = entryFormElement.querySelector('.button-option-selected[data-entry-type-button]')?.dataset.entryTypeButton;
   
   let selectedCategory
@@ -104,7 +104,7 @@ function formIntoEntry(entryFormElement) {
 
 
   return {
-    id: id ? Number.parseInt(id, 10) : generateEntryId(),
+    docId: docId || null,
     type: selectedType,
     category: selectedCategory,
     amount,
