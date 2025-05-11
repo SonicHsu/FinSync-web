@@ -663,6 +663,10 @@ video {
   height: 18px;
 }
 
+.h-\[20px\] {
+  height: 20px;
+}
+
 .h-\[240px\] {
   height: 240px;
 }
@@ -719,10 +723,6 @@ video {
   height: 100vh;
 }
 
-.h-\[20px\] {
-  height: 20px;
-}
-
 .min-h-\[80px\] {
   min-height: 80px;
 }
@@ -733,6 +733,10 @@ video {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-\[120px\] {
+  width: 120px;
 }
 
 .w-\[135px\] {
@@ -793,10 +797,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[120px\] {
-  width: 120px;
 }
 
 .flex-1 {
@@ -1079,6 +1079,10 @@ video {
   stroke: #fff;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1340,6 +1344,12 @@ video {
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.mini-calendar-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -1399,4 +1409,3 @@ video {
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
 }
-

@@ -51,3 +51,6 @@
   @apply bg-white/10;
 }
 
+.mini-calendar-item {
+  @apply flex items-center justify-center
+}
