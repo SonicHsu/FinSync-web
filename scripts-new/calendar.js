@@ -1,5 +1,5 @@
 import { today } from "./date.js"
-import { initMonthCalendar } from "./month-calendar.js";
+import { initMonthCalendar, updateMonthCalendarData } from "./month-calendar.js";
 import { initDayCalendar, updateDayCalendarData } from "./day-calendar.js";
 import { initEntryCreateButtons } from "./entry-create-button.js";
 
@@ -13,7 +13,7 @@ export async function initCalendar(entryStore) {
     function initCalendarStructure() {
         calendarElement.replaceChildren();
         if (selectedView === "month") {
-            initMonthCalendar(calendarElement, selectedDate, entryStore); // 月視圖保持原邏輯
+            initMonthCalendar(calendarElement, selectedDate); // 月視圖保持原邏輯
         } else {
             initDayCalendar(calendarElement); // 只渲染日視圖結構
         }
@@ -23,7 +23,7 @@ export async function initCalendar(entryStore) {
 
     async function updateCalendarData() {
         if (selectedView === "month") {
-            initMonthCalendar(calendarElement, selectedDate, entryStore); // 月視圖暫不優化
+            await updateMonthCalendarData(calendarElement, selectedDate, entryStore); // 月視圖暫不優化
         } else {
             await updateDayCalendarData(calendarElement, selectedDate, entryStore);
         }

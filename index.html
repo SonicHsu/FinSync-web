@@ -14,8 +14,10 @@
 </head>
 
 <body class="font-sans bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 text-white h-screen flex flex-col">
-    <div class="w-[981px] h-[30px] flex mx-auto items-center justify-end mt-8">
+    <div class="w-[981px] h-[30px] flex mx-auto items-center justify-end mt-8 space-x-2">
+        <div class="text-xl" data-login-username></div>
         <button class="font-semibold text-xl rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center px-5" data-login-button>登入</button>
+        <button class="font-semibold text-xl rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center px-5" data-logout-button>登出</button>
     </div>
     <header class="w-[981px] h-[62px] flex mx-auto items-center justify-between mt-1">
         <div>
@@ -319,7 +321,7 @@
                 <div
                     class=" h-full border border-white/10 bg-white/10 rounded-[10px] flex items-center justify-between px-5 space-x-6">
                     <span class="font-bold text-3xl">月結餘</span>
-                    <span class="font-bold text-5xl text-gray-400" data-month-total>-222220</span>
+                    <span class="font-bold text-5xl text-gray-400" data-month-total>0</span>
                 </div>
 
             </footer>
@@ -339,9 +341,9 @@
                 </div>
 
                 <div class="flex flex-col grow justify-evenly" data-day-summary>
-                    <div class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-gray-400/50 rounded-full pt-0.5"
+                    <div class="flex w-[120px] h-[20px] text-xl items-center justify-center text-center rounded-full pt-0.5 bg-gray-400/50"
                         data-expense-total></div>
-                    <div class="w-[120px] h-[20px] text-xl flex items-center justify-center text-center bg-blue-400/50 rounded-full pt-0.5"
+                    <div class="flex w-[120px] h-[20px] text-xl items-center justify-center text-center rounded-full pt-0.5 bg-sky-400/50"
                         data-income-total></div>
                 </div>
             </button>
@@ -377,11 +379,11 @@
                 <div class="w-[645px] h-[50px] flex justify-between mt-5">
                     <div class="w-[310px] rounded-[10px] flex items-center justify-between bg-gray-400/50 px-3">
                         <span class="font-semibold text-2xl">當日支出</span>
-                        <span class="text-4xl" data-today-expense></span>
+                        <span class="text-4xl" data-today-expense>0</span>
                     </div>
                     <div class="w-[310px] rounded-[10px] flex items-center justify-between bg-blue-400/50 px-3">
                         <span class="font-semibold text-2xl">當日收入</span>
-                        <span class="text-4xl" data-today-income></span>
+                        <span class="text-4xl" data-today-income>0</span>
                     </div>
                 </div>
 

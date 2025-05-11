@@ -20,6 +20,7 @@ export function initEntryStore() {
             const entryToSave = {
                 ...entryData,
                 date: Timestamp.fromDate(entryData.date)
+                
             };
             // 儲存到 Firestore
             const collectionName = `entries_${userId}`;
