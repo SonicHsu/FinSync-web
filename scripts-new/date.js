@@ -90,7 +90,12 @@ function getLastDayOfMonthDate(date) {
 }
 
 export function formatDate(date) {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return date.toLocaleString('zh-TW', options);
+}
+
+export function formatMonth(date) {
+    const options = { year: "numeric", month: "2-digit"};
     return date.toLocaleString('zh-TW', options);
 }
 

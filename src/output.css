@@ -1202,6 +1202,10 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-white\/30 {
+  color: rgb(255 255 255 / 0.3);
+}
+
 .text-white\/50 {
   color: rgb(255 255 255 / 0.5);
 }
@@ -1348,6 +1352,20 @@ video {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mini-calendar-date-selected {
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
+.mini-calendar-date-today {
+  border-radius: 9999px;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
+  background-color: rgb(125 211 252 / 0.3);
 }
 
 .hover\:scale-105:hover {

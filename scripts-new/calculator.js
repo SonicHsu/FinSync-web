@@ -5,13 +5,20 @@ const totalTypeMap = {
     "income": "totalIncome"
 };
 
-const totalCategoryMap = {
+const expenseCategoryMap = {
     "food": "totalFood",
     "transport": "totalTransport",
     "housing": "totalHousing",
     "entertainment": "totalEntertainment",
     "life": "totalLife",
-    "other": "totalOther"
+    "expenseOther": "totalExpenseOther"
+};
+
+const incomeCategoryMap = {
+    "salary": "totalSalary",
+    "bonus": "totalBonus",
+    "investment": "totalInvestment",
+    "incomeOther": "totalIncomeOther"
 };
 
 function calculateTotals(entries, formatFunction, typeMap, categoryMap = null) {
@@ -47,4 +54,20 @@ function calculateTotals(entries, formatFunction, typeMap, categoryMap = null) {
 
 export function getDateTypeTotals(entries) {
     return calculateTotals(entries, formatDateForStats, totalTypeMap);
+}
+
+export function getMonthCategoryTotals(entries, month, type) {
+    const totals = calculateTotals(entries, formatMonthForStats, totalTypeMap, expenseCategoryMap, incomeCategoryMap);
+    const monthData = totals[month]?.[type] || {};
+
+    // 填充缺失的類別為 0
+    const categoryMap = type === "totalExpense" ? expenseCategoryMap : incomeCategoryMap;
+    const result = {};
+
+    for (const [key, value] of Object.entries(categoryMap)) {
+        const categoryKey = value;
+        result[key] = monthData[categoryKey] || 0;
+    }
+
+    return result;
 }

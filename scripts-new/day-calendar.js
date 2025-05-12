@@ -1,12 +1,15 @@
 import { initEntry } from "./entry.js";
 import { getDateTypeTotals } from "./calculator.js";
 import { formatDateForStats } from "./date.js";
+import { initMiniCalendars } from "./mini-calendar.js";
+import { initViewStatsButtons } from "./view-stats-button.js"
 
 const calendarTemplateElement = document.querySelector("[data-template='day-calendar']");
 
 export function initDayCalendar(parent) {
     const calendarContent = calendarTemplateElement.content.cloneNode(true);
     parent.appendChild(calendarContent);
+    initMiniCalendars();
 }
 
 

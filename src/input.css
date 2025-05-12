@@ -54,3 +54,12 @@
 .mini-calendar-item {
   @apply flex items-center justify-center
 }
+
+
+.mini-calendar-date-selected {
+ @apply bg-blue-500 rounded-full
+}
+
+.mini-calendar-date-today {
+ @apply bg-sky-300/30 rounded-full border border-blue-500
+}

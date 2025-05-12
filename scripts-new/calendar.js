@@ -2,6 +2,7 @@ import { today } from "./date.js"
 import { initMonthCalendar, updateMonthCalendarData } from "./month-calendar.js";
 import { initDayCalendar, updateDayCalendarData } from "./day-calendar.js";
 import { initEntryCreateButtons } from "./entry-create-button.js";
+import { initViewStatsButtons } from "./view-stats-button.js"
 
 export async function initCalendar(entryStore) {
     const calendarElement = document.querySelector("[data-calendar]");
@@ -18,6 +19,7 @@ export async function initCalendar(entryStore) {
             initDayCalendar(calendarElement); // 只渲染日視圖結構
         }
         initEntryCreateButtons(selectedDate);
+        initViewStatsButtons(selectedDate);
         isInitialized = true;
     }
 
