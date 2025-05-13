@@ -290,6 +290,13 @@
         <script>
             const ctx = document.getElementById('myChart');
 
+            document.addEventListener("view-stats-entries", async (event) => {
+                const date = event.detail.date;
+                const entries = await event.detail.entryStore.getEntriesByDate(date);
+                console.log(date);
+                console.log(entries);
+            })
+
             new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -309,7 +316,6 @@
                 }
             });
         </script>
-
     </dialog>
 
 

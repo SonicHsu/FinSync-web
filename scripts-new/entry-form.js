@@ -43,7 +43,6 @@ export function initEntryForm(parent, resetEntryForm) {
   return {
     switchToCreateMode() {
       mode = "create";
-
     },
     switchToEditMode(entry) {
       mode = "edit";
@@ -55,6 +54,7 @@ export function initEntryForm(parent, resetEntryForm) {
 
 
 }
+
 
 function fillEntryEditDialog(entryFormElement, entry) {
   const entryIdElement = entryFormElement.querySelector("[data-entry-id]");

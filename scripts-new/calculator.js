@@ -1,6 +1,6 @@
 import { formatDateForStats, formatMonthForStats } from "./date.js";
 
-const totalTypeMap = {
+const TypeMap = {
     "expense": "totalExpense",
     "income": "totalIncome"
 };
@@ -21,53 +21,46 @@ const incomeCategoryMap = {
     "incomeOther": "totalIncomeOther"
 };
 
-function calculateTotals(entries, formatFunction, typeMap, categoryMap = null) {
+function calculateTotals(entries, dateKey, map) {
     const totals = entries.reduce((acc, entry) => {
-        const dateKey = formatFunction(entry.date);
         if (!acc[dateKey]) {
             acc[dateKey] = {};
         }
 
-        const typeKey = typeMap[entry.type];
+        const mapKey = map[entry.type || entry.category]; // 使用 type 或 category
 
-        if (!typeKey) return acc;
+        if (!mapKey) return acc;
 
-        if (!acc[dateKey][typeKey]) {
-            acc[dateKey][typeKey] = categoryMap ? {} : 0;
+        if (!acc[dateKey][mapKey]) {
+            acc[dateKey][mapKey] = 0;
         }
 
-        if (categoryMap) {
-            const categoryKey = categoryMap[entry.category];
-            if (categoryKey) {
-                acc[dateKey][typeKey][categoryKey] =
-                    (acc[dateKey][typeKey][categoryKey] || 0) + entry.amount;
-            }
-        } else {
-            acc[dateKey][typeKey] += entry.amount;
-        }
+        acc[dateKey][mapKey] += entry.amount;
 
         return acc;
     }, {});
 
-    return totals
+    return totals;
+}
+export function getDateTypeTotals(entries, date) {
+    const dateKey = formatDateForStats(date);
+    const entriesTotal = calculateTotals(entries, dateKey, TypeMap);
+
+    const expense = entriesTotal[dateKey]?.totalExpense || 0;
+    const income = entriesTotal[dateKey]?.totalIncome || 0;
+
+    return { expense, income };
 }
 
-export function getDateTypeTotals(entries) {
-    return calculateTotals(entries, formatDateForStats, totalTypeMap);
-}
+export function getMonthCategoryTotals(entries, date, map) {
+    const dateKey = formatMonthForStats(date);
+    const entriesTotal = calculateTotals(entries, dateKey, map);
 
-export function getMonthCategoryTotals(entries, month, type) {
-    const totals = calculateTotals(entries, formatMonthForStats, totalTypeMap, expenseCategoryMap, incomeCategoryMap);
-    const monthData = totals[month]?.[type] || {};
+    const categories = Object.keys(map);
 
-    // 填充缺失的類別為 0
-    const categoryMap = type === "totalExpense" ? expenseCategoryMap : incomeCategoryMap;
-    const result = {};
-
-    for (const [key, value] of Object.entries(categoryMap)) {
-        const categoryKey = value;
-        result[key] = monthData[categoryKey] || 0;
-    }
-
-    return result;
+    return categories.reduce((acc, key) => {
+        const mapKey = map[key];
+        acc[key] = entriesTotal[dateKey]?.[mapKey] || 0;
+        return acc;
+    }, {});
 }

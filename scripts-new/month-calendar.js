@@ -106,10 +106,7 @@ export async function updateMonthCalendarData(parent, selectedDate, entryStore) 
         entryStore.getEntriesByDate(calendarDay)
             .then(entries => {
                 const entriesCount = entries.length;
-                const entriesTotal = getDateTypeTotals(entries);
-                const dateKey = formatDateForStats(calendarDay);
-                const expense = entriesTotal[dateKey]?.totalExpense || 0;
-                const income = entriesTotal[dateKey]?.totalIncome || 0;
+                const {expense, income} = getDateTypeTotals(entries, calendarDay);
                 return { calendarDay, entriesCount, expense, income };
             })
             .catch(error => {

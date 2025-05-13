@@ -7,7 +7,6 @@ export function initViewStatsButtons(selectedDate) {
                 detail: { date: selectedDate },
                 bubbles: true
             }));
-
         });
     }
 };

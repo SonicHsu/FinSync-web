@@ -1,8 +1,6 @@
 import { initEntry } from "./entry.js";
 import { getDateTypeTotals } from "./calculator.js";
-import { formatDateForStats } from "./date.js";
 import { initMiniCalendars } from "./mini-calendar.js";
-import { initViewStatsButtons } from "./view-stats-button.js"
 
 const calendarTemplateElement = document.querySelector("[data-template='day-calendar']");
 
@@ -22,16 +20,10 @@ export async function updateDayCalendarData(parent, selectedDate, entryStore) {
     calendarEntryList.replaceChildren();
 
     const date = selectedDate;
-    const dataStats = formatDateForStats(date);
     const entries = await entryStore.getEntriesByDate(date);
     console.log(entries);
 
-    const entriesTotal = getDateTypeTotals(entries);
-    console.log(entriesTotal[dataStats]?.totalExpense || 0);
-
-    const expense = entriesTotal[dataStats]?.totalExpense || 0;
-    const income = entriesTotal[dataStats]?.totalIncome || 0;
-
+    const {expense, income} = getDateTypeTotals(entries, date);
 
     calendarTodayExpense.textContent = expense;
     calendarTodayIncome.textContent = income;

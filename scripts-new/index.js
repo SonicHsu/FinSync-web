@@ -17,7 +17,7 @@ initNav();
 initEntryDetailDialog();
 initDeleteDialog();
 initEntryFormDialog();
-initViewStatsDialog()
+initViewStatsDialog(entryStore);
 initViewSelect();
 
 

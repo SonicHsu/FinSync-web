@@ -29,6 +29,8 @@ export async function initCalendar(entryStore) {
         } else {
             await updateDayCalendarData(calendarElement, selectedDate, entryStore);
         }
+        initEntryCreateButtons(selectedDate);
+        initViewStatsButtons(selectedDate);
     }
 
     async function refreshCalendar() {
@@ -38,7 +40,7 @@ export async function initCalendar(entryStore) {
         await updateCalendarData();
     }
 
-    document.addEventListener("view-change", (event) => {
+        document.addEventListener("view-change", (event) => {
         selectedView = event.detail.view;
         isInitialized = false; // 視圖改變時重建結構
         refreshCalendar();
@@ -52,6 +54,8 @@ export async function initCalendar(entryStore) {
     document.addEventListener("entries-change", () => {
         updateCalendarData();
     });
+
+
 
     await refreshCalendar();
 }
