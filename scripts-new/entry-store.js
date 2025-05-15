@@ -1,4 +1,4 @@
-import { isTheSameDay } from "./date.js";
+import { isTheSameDay, isTheSameMonth } from "./date.js";
 import { getUser } from "./state.js";
 import { collection, addDoc, getDocs, Timestamp, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 import { db } from "./firebase-config.js";
@@ -112,6 +112,31 @@ export function initEntryStore() {
                         date: doc.data().date.toDate()
                     }))
                     .filter(entry => isTheSameDay(entry.date, date));
+                return entries;
+            } catch (error) {
+                console.error("Error fetching entries:", error.message);
+                return [];
+            }
+        },
+        async getEntriesByMonth(date) {
+            const userId = getUser();
+            if (!userId) {
+                console.error("User not authenticated");
+                return [];
+            }
+
+            try {
+                const collectionName = `entries_${userId}`;
+                const entriesCollectionRef = collection(db, collectionName);
+                const querySnapshot = await getDocs(entriesCollectionRef);
+
+                const entries = querySnapshot.docs
+                    .map(doc => ({
+                        docId: doc.id,
+                        ...doc.data(),
+                        date: doc.data().date.toDate()
+                    }))
+                    .filter(entry => isTheSameMonth(entry.date, date));
                 return entries;
             } catch (error) {
                 console.error("Error fetching entries:", error.message);

@@ -5,7 +5,7 @@ const TypeMap = {
     "income": "totalIncome"
 };
 
-const expenseCategoryMap = {
+export const expenseCategoryMap = {
     "food": "totalFood",
     "transport": "totalTransport",
     "housing": "totalHousing",
@@ -14,7 +14,7 @@ const expenseCategoryMap = {
     "expenseOther": "totalExpenseOther"
 };
 
-const incomeCategoryMap = {
+export const incomeCategoryMap = {
     "salary": "totalSalary",
     "bonus": "totalBonus",
     "investment": "totalInvestment",
@@ -22,12 +22,14 @@ const incomeCategoryMap = {
 };
 
 function calculateTotals(entries, dateKey, map) {
+    const isTypeMap = "expense" in map || "income" in map;
+
     const totals = entries.reduce((acc, entry) => {
         if (!acc[dateKey]) {
             acc[dateKey] = {};
         }
 
-        const mapKey = map[entry.type || entry.category]; // 使用 type 或 category
+        const mapKey = isTypeMap ? map[entry.type] : map[entry.category];
 
         if (!mapKey) return acc;
 

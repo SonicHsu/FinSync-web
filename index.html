@@ -280,41 +280,164 @@
         </div>
     </dialog>
 
-    <dialog class="w-[420px] bg-slate-950/80 border border-blue-400/50 rounded-[10px]" data-dialog="view-stats">
+    <dialog class="w-[800px] h-[480px] bg-slate-950/80 border border-blue-400/50 rounded-[10px]"
+        data-dialog="view-stats">
+        <div class="flex items-center justify-between  mt-5 mx-5" data-view-stats>
+            <div class="font-bold text-3xl text-white" data-view-stats-title>2025/05 月統計</div>
+
+            <div class="w-[250px] h-[30px] bg-gray-400/50 rounded-[90px] flex items-center justify-center">
+                <button class="button-option-selected font-bold" data-entry-type-button="expense">支出</button>
+                <button class="button-option font-bold" data-entry-type-button="income">收入</button>
+            </div>
+        </div>
+
+
+
+
         <div>
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart" class="w-[800px] h-[450px] px-4"></canvas>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
         <script>
-            const ctx = document.getElementById('myChart');
-
-            document.addEventListener("view-stats-entries", async (event) => {
-                const date = event.detail.date;
-                const entries = await event.detail.entryStore.getEntriesByDate(date);
-                console.log(date);
-                console.log(entries);
+            const dialog = document.querySelector('dialog[data-dialog="view-stats"]');
+            dialog.addEventListener("close", () => {
+                currentMode = "expense";
+                console.log(currentMode)
             })
 
-            new Chart(ctx, {
-                type: 'bar',
+            let expenseTotals = {};
+            let incomeTotals = {};
+
+            document.addEventListener("view-stats-entries", async (event) => {
+                const { getMonthCategoryTotals, expenseCategoryMap, incomeCategoryMap } = await import("./scripts-new/calculator.js");
+                const date = event.detail.date;
+                const entries = await event.detail.entryStore.getEntriesByMonth(date);
+
+
+                expenseTotals = getMonthCategoryTotals(entries, date, expenseCategoryMap);
+                incomeTotals = getMonthCategoryTotals(entries, date, incomeCategoryMap);
+
+
+                updateChart();
+            });
+
+            const categoryData = {
+                "food": { "color": "rgba(255, 159, 64, 0.6)", "label": "飲食" },
+                "transport": { "color": "rgba(54, 162, 235, 0.6)", "label": "交通" },
+                "housing": { "color": "rgba(75, 192, 192, 0.6)", "label": "住房" },
+                "entertainment": { "color": "rgba(255, 99, 132, 0.6)", "label": "娛樂" },
+                "life": { "color": "rgba(153, 102, 255, 0.6)", "label": "生活" },
+                "expenseOther": { "color": "rgba(201, 203, 207, 0.6)", "label": "其他" },
+                "salary": { "color": "rgba(255, 205, 86, 0.6)", "label": "薪資" },
+                "bonus": { "color": "rgba(75, 192, 192, 0.6)", "label": "獎金" },
+                "investment": { "color": "rgba(54, 162, 235, 0.6)", "label": "投資" },
+                "incomeOther": { "color": "rgba(201, 203, 207, 0.6)", "label": "其他" }
+            };
+
+            const ctx = document.getElementById("myChart").getContext("2d");
+            Chart.register(ChartDataLabels);
+            const chart = new Chart(ctx, {
+                type: "bar",
                 data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: [],
                     datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
+                        label: "",
+                        data: [],
+                        backgroundColor: [],
                         borderWidth: 1
                     }]
                 },
                 options: {
+                    responsive: true,
+                    animation: false,
+                    indexAxis: 'y',
                     scales: {
                         y: {
-                            beginAtZero: true
+                            ticks: {
+                                color: "#ffffff",  // 字體顏色
+                                font: {
+                                    size: 18,     // 👈 字體大小
+                                    // 可選：粗體
+                                }
+                            }
+                        },
+                        x: {
+                            beginAtZero: true,
+                            max: 500000,
+                            ticks: {
+                                display: false   // 👈 關閉數值顯示
+                            },
+                            grid: {
+                                drawTicks: false // 也可加這行讓小刻度線也不顯示
+                            }
                         }
-                    }
-                }
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: function (context) {
+                                return !isNaN(context.dataset.data[context.dataIndex]);
+                            },
+                            anchor: 'start',         // 數字顯示在 bar 的末端（bar 頂部）
+                            align: 'end',
+                            offset: 10,         // 對齊方式
+                            color: '#fff',         // 顏色
+                            font: {
+                                size: 25,          // 字體大小
+                                weight: 'normal'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 20,
+                            bottom: 20
+                        }
+                    },
+                    maintainAspectRatio: false,
+                },
+                plugins: [ChartDataLabels]
             });
+
+            let currentMode = "expense";
+
+            const updateChart = () => {
+                const totals = currentMode === "expense" ? expenseTotals : incomeTotals;
+                const categories = Object.keys(totals);
+                const values = Object.values(totals);
+
+                const filledCategories = [...categories];
+                const filledValues = [...values];
+                const filledColors = categories.map(key =>
+                    categoryData[key]?.color || "rgba(255, 255, 255, 0.1)"
+                );
+
+                // 若不足 6 項，補上 NaN 佔位
+                while (filledCategories.length < 6) {
+                    filledCategories.push("");     // 空白 label
+                    filledValues.push(NaN);        // NaN 不會被畫出 bar
+                    filledColors.push("transparent");  // bar 顏色透明
+                }
+
+                chart.data.labels = filledCategories.map(key => categoryData[key]?.label || key || " ");
+                chart.data.datasets[0].data = filledValues;
+                chart.data.datasets[0].backgroundColor = filledColors;
+                chart.data.datasets[0].label = currentMode === "expense" ? "支出" : "收入";
+
+                chart.update();
+            };
+
+            document.addEventListener("statsTypeChange", (event) => {
+                currentMode = event.detail.value;
+                updateChart()
+            })
+            // 初次渲染
+            updateChart();
         </script>
     </dialog>
 
