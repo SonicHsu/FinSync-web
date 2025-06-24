@@ -7,7 +7,7 @@
 - 新增交易紀錄（支出 / 收入、分類、金額、日期）
 - 編輯、刪除交易紀錄
 - 月曆檢視交易資料
-- Firebase Email/Password 登入與登出
+- Firebase Google 登入
 - Firestore 儲存、讀取、更新、刪除資料
 - Chart.js 繪製收支分類圖表
 - Tailwind CSS 設計介面
